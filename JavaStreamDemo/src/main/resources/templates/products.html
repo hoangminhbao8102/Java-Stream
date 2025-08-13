@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<body>
+  <h2>Sản phẩm (Stream cơ bản)</h2>
+
+  <h4 class="mt-4">Tất cả</h4>
+  <table class="table table-sm table-striped">
+    <thead><tr><th>#</th><th>Tên</th><th>Danh mục</th><th>Giá</th><th>Tồn</th></tr></thead>
+    <tbody>
+    <tr th:each="p : ${all}">
+      <td th:text="${p.id}"></td>
+      <td th:text="${p.name}"></td>
+      <td th:text="${p.category}"></td>
+      <td th:text="${#numbers.formatDecimal(p.price,1,'DEFAULT',2,'DEFAULT')}"></td>
+      <td th:text="${p.stock}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h4 class="mt-4">Còn hàng (lọc) & sắp xếp theo giá tăng dần</h4>
+  <ul>
+    <li th:each="p : ${inStock}" th:text="|${p.name} - ${p.price} (stock ${p.stock})|"></li>
+  </ul>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sản phẩm đắt nhất</h5>
+          <p th:if="${maxPrice != null}" th:text="|${maxPrice.name} - ${maxPrice.price}|">N/A</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Tổng giá trị tồn kho (reduce)</h5>
+          <p th:text="${#numbers.formatDecimal(totalValue,1,'DEFAULT',2,'DEFAULT')}"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5>Đếm theo danh mục (groupingBy + counting)</h5>
+      <ul>
+        <li th:each="e : ${countByCategory}" th:text="|${e.key}: ${e.value}|"></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>Giá trung bình theo danh mục (Collector.of)</h5>
+      <ul>
+        <li th:each="e : ${avgPriceByCategory}" th:text="|${e.key}: ${#numbers.formatDecimal(e.value,1,'DEFAULT',2,'DEFAULT')}|"></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

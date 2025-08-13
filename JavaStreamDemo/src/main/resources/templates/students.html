@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<body>
+  <h2>Sinh viên (Collectors nâng cao)</h2>
+
+  <form class="row g-2 mb-3" method="get">
+    <div class="col-auto">
+      <label class="col-form-label">Honors threshold (GPA ≥)</label>
+    </div>
+    <div class="col-auto">
+      <input type="number" step="0.1" min="0" max="4" class="form-control" name="honors" th:value="${honors}">
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary">Áp dụng</button>
+    </div>
+  </form>
+
+  <h5>Danh sách</h5>
+  <table class="table table-sm table-striped">
+    <thead><tr><th>#</th><th>Tên</th><th>Ngành</th><th>GPA</th></tr></thead>
+    <tbody>
+      <tr th:each="s : ${all}">
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.major}"></td>
+        <td th:text="${s.gpa}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5>GPA trung bình theo ngành</h5>
+      <ul>
+        <li th:each="e : ${avgGpaByMajor}" th:text="|${e.key}: ${#numbers.formatDecimal(e.value,1,'DEFAULT',2,'DEFAULT')}|"></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>Phân nhóm Honors (partitioningBy)</h5>
+      <div class="row">
+        <div class="col">
+          <strong>Honors</strong>
+          <ul>
+            <li th:each="s : ${partition[true]}" th:text="|${s.name} (${s.gpa})|"></li>
+          </ul>
+        </div>
+        <div class="col">
+          <strong>Others</strong>
+          <ul>
+            <li th:each="s : ${partition[false]}" th:text="|${s.name} (${s.gpa})|"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h5>Thống kê GPA (summarizingDouble)</h5>
+    <code th:text="|count=${stats.count} min=${#numbers.formatDecimal(stats.min,1,'DEFAULT',2,'DEFAULT')} avg=${#numbers.formatDecimal(stats.average,1,'DEFAULT',2,'DEFAULT')} max=${#numbers.formatDecimal(stats.max,1,'DEFAULT',2,'DEFAULT')}|"></code>
+  </div>
+</body>
+</html>

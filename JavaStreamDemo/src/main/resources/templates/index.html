@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<body>
+  <h1 class="mb-3">Java Stream – Showcase</h1>
+  <p class="lead">Map, Filter, Reduce, Collectors, Grouping, FlatMap, Optional, Parallel...</p>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Products</h5>
+          <p class="card-text">Lọc tồn kho, sắp xếp theo giá, giá trị kho, trung bình theo danh mục.</p>
+          <a th:href="@{/products}" class="btn btn-primary">Xem ( <span th:text="${productsCount}"></span> )</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Students</h5>
+          <p class="card-text">Grouping by major, partition honors, GPA statistics.</p>
+          <a th:href="@{/students}" class="btn btn-primary">Xem ( <span th:text="${studentsCount}"></span> )</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Collectors & Orders</h5>
+          <p class="card-text">flatMap items, tổng số lượng, doanh thu, tên SP distinct.</p>
+          <a th:href="@{/collectors}" class="btn btn-primary">Xem ( <span th:text="${ordersCount}"></span> orders)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<body>
+  <h2>Collectors, flatMap & doanh thu</h2>
+
+  <h5>Tên sản phẩm đã bán (distinct + sorted)</h5>
+  <ul>
+    <li th:each="n : ${orderedNames}" th:text="${n}"></li>
+  </ul>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5>Tổng số lượng theo sản phẩm</h5>
+      <ul>
+        <li th:each="e : ${qtyByProduct}" th:text="|${e.key}: ${e.value}|"></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>Tổng doanh thu</h5>
+      <p class="fs-5" th:text="${#numbers.formatDecimal(revenue,1,'DEFAULT',2,'DEFAULT')}"></p>
+    </div>
+  </div>
+</body>
+</html>

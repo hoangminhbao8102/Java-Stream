@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<body>
+  <h2>Parallel Stream (demo thời gian)</h2>
+
+  <form class="row g-2 mb-3" method="get">
+    <div class="col-auto"><label class="col-form-label">n (sum of squares 1..n)</label></div>
+    <div class="col-auto"><input class="form-control" type="number" name="n" min="1000" step="1000" th:value="${n}"></div>
+    <div class="col-auto"><button class="btn btn-primary">Chạy</button></div>
+  </form>
+
+  <pre>sequential: <span th:text="${timing['sequentialMillis']}"></span> ms
+parallel  : <span th:text="${timing['parallelMillis']}"></span> ms</pre>
+
+  <p class="text-muted">Lưu ý: parallel stream không phải lúc nào cũng nhanh hơn; tùy workload và CPU cores.</p>
+</body>
+</html>
